@@ -1,14 +1,12 @@
-import {
-  Blur,
-  Canvas,
-  Image,
-  useImage,
-} from "@shopify/react-native-skia";
+import { Blur, Canvas, Image, useImage } from "@shopify/react-native-skia";
 import { Dimensions } from "react-native";
+import Brightness from "./Brightness";
+import { SharedValue } from "react-native-reanimated";
 
-const Background = () => {
+const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+
+const Background = ({ progress }: { progress: SharedValue<number> }) => {
   const image = useImage(require("./assets/background.jpg"));
-  const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
   if (!image) {
     return null;
   }
@@ -25,6 +23,7 @@ const Background = () => {
       >
         <Blur blur={10} mode={"clamp"} />
       </Image>
+      <Brightness progress={progress} />
     </Canvas>
   );
 };

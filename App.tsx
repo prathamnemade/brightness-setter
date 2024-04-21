@@ -1,25 +1,15 @@
-import { StyleSheet, View } from "react-native";
+import { useSharedValue } from "react-native-reanimated";
 import Background from "./Background";
 import Setter from "./Setter";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useEffect } from "react";
 
 export default function App() {
+  const progress = useSharedValue(0);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Background />
-      <View style={styles.container}>
-        <Setter />
-      </View>
+      <Background progress={progress} />
+      <Setter progress={progress} />
     </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    position: "absolute",
-    height: "100%",
-    width: "100%",
-  },
-});
